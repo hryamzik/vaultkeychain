@@ -1,17 +1,34 @@
 # vaultkeychain
-Scripts to link ansible-vault and keychain
+Scripts to link ansible-vault and keychain. Keychain username is set to a git remote URL in git@ format if it could be determined, otherwize current system path is used instead.
 
-## Usage
+## Installation
 ### MAC OS
 
 ```bash
 git clone https://github.com/gitinsky/vaultkeychain.git
+ln -vs "$PWD/vaultkeychain/vaultkeychain.py" ~/sbin/vaultkeychain
+```
+
+Or for shell version:
+
+```bash
 ln -vs "$PWD/vaultkeychain/vaultkeychain.sh" ~/sbin/vaultkeychain
 ```
 
-Your ansible.cfg:
+## Usage
+
+#### ansible.cfg:
 
 ```ini
 [defaults]
 vault_password_file = ~/sbin/vaultkeychain
 ```
+
+#### env
+
+```bash
+export ANSIBLE_VAULT_PASSWORD_FILE=~/sbin/vaultkeychain
+```
+
+# Other resources
+[ansible-tools](https://github.com/lvillani/ansible-tools)
