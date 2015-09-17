@@ -24,6 +24,18 @@ ln -vs "$PWD/vaultkeychain/vaultkeychain.sh" ~/sbin/vaultkeychain
 vault_password_file = ~/sbin/vaultkeychain
 ```
 
+## Test
+
+Run
+
+```bash
+PAGER=cat ansible-vault view vaulted.yml
+```
+
+Password is ```vaultkeychain```.
+
+On the second run password should be retreived from your keychain.
+
 #### env
 
 ```bash
