@@ -6,6 +6,7 @@ import re
 import os
 import sys
 from subprocess import Popen, PIPE
+import getpass
 
 import __builtin__
 def raw_input(prompt=None):
@@ -25,7 +26,7 @@ username = "ansible-vault"
 
 password = keyring.get_password(KEYRING_SERVICE, username )
 if not password:
-    password = raw_input("Enter password for '%s':" % KEYRING_SERVICE)
+    password = getpass.getpass("Enter password for '%s':" % KEYRING_SERVICE)
     try:
         keyring.set_password(KEYRING_SERVICE, username, password)
     except keyring.errors.PasswordSetError:
