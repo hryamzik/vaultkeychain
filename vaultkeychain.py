@@ -8,13 +8,21 @@ import sys
 from subprocess import Popen, PIPE
 import getpass
 
-import __builtin__
+if sys.version_info < (3, 0):
+    import __builtin__
+else:
+    import builtins as __builtin__
+
 def raw_input(prompt=None):
     if prompt:
         sys.stderr.write(str(prompt))
     return __builtin__.raw_input()
 
-out, err = Popen(["git", "config", "--get", "remote.origin.url"], stdout=PIPE, stderr=PIPE).communicate()
+if sys.version_info < (3, 0):
+    out, err = Popen(["git", "config", "--get", "remote.origin.url"], stdout=PIPE, stderr=PIPE).communicate()
+else:
+    out, err = Popen(["git", "config", "--get", "remote.origin.url"], stdout=PIPE, stderr=PIPE, text=True).communicate()
+
 repo=re.sub(r'http(s)?:[/]{2}([^/]+)[/]', r'git@\2:', out.split('\n')[0])
 
 if re.search('\S', repo):
@@ -32,4 +40,4 @@ if not password:
     except keyring.errors.PasswordSetError:
         print >> sys.stderr, "failed to store password"
 
-print password
+print(password)
